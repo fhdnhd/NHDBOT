@@ -1857,10 +1857,10 @@ Desc : ${PlXz.player_response.videoDetails.shortDescription}`,
             `https://api.akuari.my.id/ai/prodia?prompt=${q}`
           );
           if (!anu) return replygcxeon(mess.error);
-          media = await anu.download();
+          //media = await anu.download();
           XeonBotInc.sendMessage(
             m.chat,
-            { image: media, caption: mess.success },
+            { image: { url: anu }, caption: mess.success },
             { quoted: m }
           );
           await fs.unlinkSync(media);
