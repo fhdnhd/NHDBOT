@@ -1775,6 +1775,7 @@ Desc : ${PlXz.player_response.videoDetails.shortDescription}`,
               `https://api.zexxadev.repl.co/api/ai/openai?text=${q}`
             );
             if (!anu) return replygcxeon(mess.error);
+            if (anu.status == false) return replygcxeon(mess.error);
             XeonBotInc.sendMessage(m.chat, { text: anu.result }, { quoted: m });
           } catch (err) {
             console.log(err);
@@ -1795,6 +1796,7 @@ Desc : ${PlXz.player_response.videoDetails.shortDescription}`,
               `https://api.betabotz.org/api/search/c-ai?prompt=${bawah}&char=${atas}&apikey=pSxJRL2x`
             );
             if (!anu) return replygcxeon(mess.error);
+            if (anu.status == false) return replygcxeon(mess.error);
             XeonBotInc.sendMessage(
               m.chat,
               { text: anu.message },
@@ -1815,6 +1817,7 @@ Desc : ${PlXz.player_response.videoDetails.shortDescription}`,
               `https://api.zahwazein.xyz/information/kbbi?query=${q}&apikey=zenzkey_5fdcdc3f64`
             );
             if (!anu) return replygcxeon(mess.error);
+            if (anu.status == false) return replygcxeon(mess.error);
             XeonBotInc.sendMessage(
               m.chat,
               { text: anu.result.title + " : " + anu.result.arti },
@@ -1834,15 +1837,16 @@ Desc : ${PlXz.player_response.videoDetails.shortDescription}`,
             let anu = await fetchJson(
               `https://api.zahwazein.xyz/searching/chordlagu?query=${q}&apikey=zenzkey_5fdcdc3f64`
             );
+            if (!anu) return replygcxeon(mess.error);
+            if (anu.status == false) return replygcxeon(mess.error);
+            XeonBotInc.sendMessage(
+              m.chat,
+              { text: anu.result.chord },
+              { quoted: m }
+            );
           } catch (e) {
             replygcxeon(mess.error);
           }
-
-          XeonBotInc.sendMessage(
-            m.chat,
-            { text: anu.result.chord },
-            { quoted: m }
-          );
         }
         break;
       case "aimage":
@@ -4840,7 +4844,7 @@ Your Message : ${pesan}
   } catch (err) {
     console.log(util.format(err));
     let e = String(err);
-    XeonBotInc.sendMessage("@s.whatsapp.net", {
+    XeonBotInc.sendMessage("6285156863505@s.whatsapp.net", {
       text:
         "Hello developer, there seems to be an error, please fix it " +
         util.format(e),
