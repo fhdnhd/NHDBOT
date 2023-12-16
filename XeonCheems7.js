@@ -1857,7 +1857,7 @@ Desc : ${PlXz.player_response.videoDetails.shortDescription}`,
             `https://api.akuari.my.id/ai/prodia?prompt=${q}`
           );
           if (!anu) return replygcxeon(mess.error);
-          media = await XeonBotInc.downloadAndSaveMediaMessage(anu);
+          media = await anu.download();
           XeonBotInc.sendMessage(
             m.chat,
             { image: media, caption: mess.success },
