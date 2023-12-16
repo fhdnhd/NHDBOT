@@ -1849,31 +1849,22 @@ Desc : ${PlXz.player_response.videoDetails.shortDescription}`,
           }
         }
         break;
-      case "aimage":
+      case "aitxt":
+        if (!q) return replygcxeon(`masukan prompt`);
+        replygcxeon(mess.wait);
         try {
-          if (global.keyopenai === "")
-            return replygcxeon("Apikey limit exceeded");
-          if (!q)
-            return replygcxeon(
-              `Generate image from AI.\n\nExample:\n${
-                prefix + command
-              } man riding horse`
-            );
-          const { Configuration, OpenAIApi } = require("openai");
-          const configuration = new Configuration({
-            apiKey: global.keyopenai,
-          });
-          const openai = new OpenAIApi(configuration);
-          const response = await openai.createImage({
-            prompt: text,
-            n: 1,
-            size: "512x512",
-          });
-          //console.log(response.data.data[0].url)
-          XeonBotInc.sendImage(from, response.data.data[0].url, text, m);
+          let anu = await fetchJson(
+            `https://api.akuari.my.id/ai/prodia?prompt=${q}`
+          );
+          if (!anu) return replygcxeon(mess.error);
+          XeonBotInc.sendMessage(
+            m.chat,
+            { image: anu, caption: mess.success },
+            { quoted: m }
+          );
         } catch (err) {
           console.log(err);
-          replygcxeon("Sorry, there seems to be an error :" + err);
+          return replygcxeon(mess.error);
         }
         break;
       case "tohd":
@@ -3749,17 +3740,26 @@ Your Message : ${pesan}
             return replygcxeon(
               `Send/Reply Photos With Captions ${prefix + command}`
             );
+          replygcxeon(mess.wait);
           media = await XeonBotInc.downloadAndSaveMediaMessage(quoted);
           mem = await uptotelegra(media);
-          let proses = await fetchJson(
-            `https://api.zexxadev.repl.co/api/tools/toanime?url=${mem}`
-          );
-          image_url = proses["result"]["image_data"];
-          XeonBotInc.sendMessage(
-            m.chat,
-            { image: { url: image_url }, caption: mess.success },
-            { quoted: m }
-          );
+          try {
+            let proses = await fetchJson(
+              `https://api.zexxadev.repl.co/api/tools/toanime?url=${mem}`
+            );
+            image_url = proses["result"]["image_data"];
+            if (!image_url) return replygcxeon(mess.error);
+            if (proses.status == false) return replygcxeon(mess.error);
+            XeonBotInc.sendMessage(
+              m.chat,
+              { image: { url: image_url }, caption: mess.success },
+              { quoted: m }
+            );
+            await fs.unlinkSync(media);
+          } catch (err) {
+            console.log(err);
+            return replygcxeon(mess.error);
+          }
         }
         break;
       case "removebg":
@@ -3769,17 +3769,26 @@ Your Message : ${pesan}
             return replygcxeon(
               `Send/Reply Photos With Captions ${prefix + command}`
             );
+          replygcxeon(mess.wait);
           media = await XeonBotInc.downloadAndSaveMediaMessage(quoted);
           mem = await uptotelegra(media);
-          let proses = await fetchJson(
-            `https://api.zexxadev.repl.co/api/tools/removebg?url=${mem}`
-          );
-          image_url = proses["result"]["image_data"];
-          XeonBotInc.sendMessage(
-            m.chat,
-            { image: { url: image_url }, caption: mess.success },
-            { quoted: m }
-          );
+          try {
+            let proses = await fetchJson(
+              `https://api.zexxadev.repl.co/api/tools/removebg?url=${mem}`
+            );
+            image_url = proses["result"]["image_data"];
+            if (!image_url) return replygcxeon(mess.error);
+            if (proses.status == false) return replygcxeon(mess.error);
+            XeonBotInc.sendMessage(
+              m.chat,
+              { image: { url: image_url }, caption: mess.success },
+              { quoted: m }
+            );
+            await fs.unlinkSync(media);
+          } catch (err) {
+            console.log(err);
+            return replygcxeon(mess.error);
+          }
         }
         break;
       case "smeme":
