@@ -1603,7 +1603,7 @@ Desc : ${PlXz.player_response.videoDetails.shortDescription}`,
         );
       } else {
       }
-
+    /*
     if (
       !isCmd &&
       m.isGroup &&
@@ -1639,7 +1639,7 @@ Desc : ${PlXz.player_response.videoDetails.shortDescription}`,
         XeonBotInc.sendImage(m.chat, buff, `${getraindata.response}`, m);
       }
     }
-
+    */
     if (
       isMedia &&
       m.msg.fileSha256 &&
