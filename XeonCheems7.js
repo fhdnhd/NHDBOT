@@ -1863,7 +1863,7 @@ Desc : ${PlXz.player_response.videoDetails.shortDescription}`,
             { image: { url: anu }, caption: mess.success },
             { quoted: m }
           );
-          await fs.unlinkSync(media);
+          //await fs.unlinkSync(media);
         } catch (err) {
           console.log(err);
           return replygcxeon(mess.error);
