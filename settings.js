@@ -73,7 +73,7 @@ global.mess = {
   premime: "Premium Special Features If You Want to Register Type Rent",
   owner: "This feature could be used by owner only",
   group: "Features Used Only For Groups!",
-  erorr: "Error",
+  error: "Error",
   private: "Features Used Only For Private Chat!",
   bot: "This feature could be used by bot only",
   wait: "In process...",
