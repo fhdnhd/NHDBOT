@@ -1770,11 +1770,16 @@ Desc : ${PlXz.player_response.videoDetails.shortDescription}`,
         {
           if (!q) return replygcxeon(`masukan pertanyaan nya`);
           replygcxeon(mess.wait);
-          let anu = await fetchJson(
-            `https://api.zexxadev.repl.co/api/ai/openai?text=${q}`
-          );
-          if (!anu) return replygcxeon(mess.error);
-          XeonBotInc.sendMessage(m.chat, { text: anu.result }, { quoted: m });
+          try {
+            let anu = await fetchJson(
+              `https://api.zexxadev.repl.co/api/ai/openai?text=${q}`
+            );
+            if (!anu) return replygcxeon(mess.error);
+            XeonBotInc.sendMessage(m.chat, { text: anu.result }, { quoted: m });
+          } catch (err) {
+            console.log(err);
+            return replygcxeon(mess.error);
+          }
         }
         break;
       case "aic":
@@ -1785,26 +1790,40 @@ Desc : ${PlXz.player_response.videoDetails.shortDescription}`,
               `Masukan perintah dengan benar .aic karakter,pertanyaan`
             );
           replygcxeon(mess.wait);
-          let anu = await fetchJson(
-            `https://api.betabotz.org/api/search/c-ai?prompt=${bawah}&char=${atas}&apikey=pSxJRL2x`
-          );
-          if (!anu) return replygcxeon(mess.error);
-          XeonBotInc.sendMessage(m.chat, { text: anu.message }, { quoted: m });
+          try {
+            let anu = await fetchJson(
+              `https://api.betabotz.org/api/search/c-ai?prompt=${bawah}&char=${atas}&apikey=pSxJRL2x`
+            );
+            if (!anu) return replygcxeon(mess.error);
+            XeonBotInc.sendMessage(
+              m.chat,
+              { text: anu.message },
+              { quoted: m }
+            );
+          } catch (err) {
+            console.log(err);
+            return replygcxeon(mess.error);
+          }
         }
         break;
       case "kbbi":
         {
           if (!q) return replygcxeon(`masukan pertanyaan nya`);
           replygcxeon(mess.wait);
-          let anu = await fetchJson(
-            `https://api.zahwazein.xyz/information/kbbi?query=${q}&apikey=zenzkey_5fdcdc3f64`
-          );
-          if (!anu) return replygcxeon(mess.error);
-          XeonBotInc.sendMessage(
-            m.chat,
-            { text: anu.result.title + " : " + anu.result.arti },
-            { quoted: m }
-          );
+          try {
+            let anu = await fetchJson(
+              `https://api.zahwazein.xyz/information/kbbi?query=${q}&apikey=zenzkey_5fdcdc3f64`
+            );
+            if (!anu) return replygcxeon(mess.error);
+            XeonBotInc.sendMessage(
+              m.chat,
+              { text: anu.result.title + " : " + anu.result.arti },
+              { quoted: m }
+            );
+          } catch (err) {
+            console.log(err);
+            return replygcxeon(mess.error);
+          }
         }
         break;
       case "chord":
