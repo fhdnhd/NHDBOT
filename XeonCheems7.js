@@ -1853,7 +1853,7 @@ Desc : ${PlXz.player_response.videoDetails.shortDescription}`,
         if (!q) return replygcxeon(`masukan prompt`);
         replygcxeon(mess.wait);
         try {
-          let anu = await fetchJson(
+          let anu = await fetch(
             `https://api.akuari.my.id/ai/prodia?prompt=${q}`
           );
           if (!anu) return replygcxeon(mess.error);
