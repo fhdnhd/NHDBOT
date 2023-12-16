@@ -1773,16 +1773,22 @@ Desc : ${PlXz.player_response.videoDetails.shortDescription}`,
           let anu = await fetchJson(
             `https://api.zexxadev.repl.co/api/ai/openai?text=${q}`
           );
+          if (!anu) return replygcxeon(mess.error);
           XeonBotInc.sendMessage(m.chat, { text: anu.result }, { quoted: m });
         }
         break;
       case "aic":
         {
           let [atas, bawah] = text.split`,`;
+          if (!atas || !bawah)
+            return replygcxeon(
+              `Masukan perintah dengan benar .aic karakter,pertanyaan`
+            );
           replygcxeon(mess.wait);
           let anu = await fetchJson(
             `https://api.betabotz.org/api/search/c-ai?prompt=${bawah}&char=${atas}&apikey=pSxJRL2x`
           );
+          if (!anu) return replygcxeon(mess.error);
           XeonBotInc.sendMessage(m.chat, { text: anu.message }, { quoted: m });
         }
         break;
@@ -1793,6 +1799,7 @@ Desc : ${PlXz.player_response.videoDetails.shortDescription}`,
           let anu = await fetchJson(
             `https://api.zahwazein.xyz/information/kbbi?query=${q}&apikey=zenzkey_5fdcdc3f64`
           );
+          if (!anu) return replygcxeon(mess.error);
           XeonBotInc.sendMessage(
             m.chat,
             { text: anu.result.title + " : " + anu.result.arti },
