@@ -197,12 +197,11 @@ module.exports = XeonBotInc = async (XeonBotInc, m, chatUpdate, store) => {
     const messagesD = body.slice(0).trim().split(/ +/).shift().toLowerCase();
     const command = body
       //.replace(prefix, "")
-      .startsWith(prefix)
       .trim()
       .split(/ +/)
       .shift()
       .toLowerCase();
-    const isCmd = command;
+    const isCmd = command.startsWith(prefix);
     const args = body.trim().split(/ +/).slice(1);
     const pushname = m.pushName || "No Name";
     const botNumber = await XeonBotInc.decodeJid(XeonBotInc.user.id);
