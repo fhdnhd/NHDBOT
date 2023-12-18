@@ -1693,7 +1693,7 @@ Desc : ${PlXz.player_response.videoDetails.shortDescription}`,
         );
       }
     };
-    if (iscmd && !isBanned && isUser) {
+    if (isCmd && !isBanned && isUser) {
       switch (command) {
         case "public":
           {
