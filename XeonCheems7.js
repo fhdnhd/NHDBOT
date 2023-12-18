@@ -197,6 +197,7 @@ module.exports = XeonBotInc = async (XeonBotInc, m, chatUpdate, store) => {
     const messagesD = body.slice(0).trim().split(/ +/).shift().toLowerCase();
     const command = body
       //.replace(prefix, "")
+      .startsWith(prefix)
       .trim()
       .split(/ +/)
       .shift()
