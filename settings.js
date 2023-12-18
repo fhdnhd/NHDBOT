@@ -46,7 +46,7 @@ global.botscript = "kamu nanyeak sc"; //script link
 global.packname = "NHDBOT";
 global.author = "NHDBOT";
 global.creator = "6285156863505@s.whatsapp.net";
-global.prefa = ["."];
+global.prefa = ".";
 global.hituet = 0;
 
 //media target
