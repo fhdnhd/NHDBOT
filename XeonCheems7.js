@@ -197,7 +197,7 @@ module.exports = XeonBotInc = async (XeonBotInc, m, chatUpdate, store) => {
     const from = m.key.remoteJid;
     const messagesD = body.slice(0).trim().split(/ +/).shift().toLowerCase();
     const command = body
-      .replace(prefix, "")
+      .replace(prefix, ".")
       .trim()
       .split(/ +/)
       .shift()
@@ -1829,6 +1829,31 @@ Desc : ${PlXz.player_response.videoDetails.shortDescription}`,
           }
         }
         break;
+      case "trad":
+        {
+          let [atas, bawah] = text.split`,`;
+          if (!atas || !bawah)
+            return replygcxeon(
+              `Masukan perintah dengan benar .trad kode bahasa,text`
+            );
+          replygcxeon(mess.wait);
+          try {
+            let anu = await fetchJson(
+              `https://api.akuari.my.id/edukasi/terjemah?query=${bawah}&kode=${atas}`
+            );
+            if (!anu) return replygcxeon(mess.error);
+            if (anu.status == false) return replygcxeon(mess.error);
+            XeonBotInc.sendMessage(
+              m.chat,
+              { text: "Translate : " + anu.result },
+              { quoted: m }
+            );
+          } catch (err) {
+            console.log(err);
+            return replygcxeon(mess.error);
+          }
+        }
+        break;
       case "chord":
         {
           if (!q) return replygcxeon(`masukan nama lagunya`);
@@ -1877,6 +1902,7 @@ Desc : ${PlXz.player_response.videoDetails.shortDescription}`,
             return replygcxeon(
               `Send/Reply Photos With Captions ${prefix + command}`
             );
+          replygcxeon(mess.wait);
           const { remini } = require("./lib/remini");
           let media = await quoted.download();
           let proses = await remini(media, "enhance");
@@ -2493,7 +2519,7 @@ description ${json.description}`;
         {
           if (!text) replygcxeon(`Example : ${prefix + command} text`);
           let tts = await fetchJson(
-            `https://api.zexxadev.repl.co/api/soundoftext?text=${text}&lang=jp`
+            `https://api.akuari.my.id/texttovoice/texttosound_english?query=${text}`
           );
           XeonBotInc.sendMessage(
             m.chat,
@@ -3755,6 +3781,34 @@ Your Message : ${pesan}
             XeonBotInc.sendMessage(
               m.chat,
               { image: { url: image_url }, caption: mess.success },
+              { quoted: m }
+            );
+            await fs.unlinkSync(media);
+          } catch (err) {
+            console.log(err);
+            return replygcxeon(mess.error);
+          }
+        }
+        break;
+      case "jadianime":
+        {
+          if (!quoted) return replygcxeon(`Where is the picture?`);
+          if (!/image/.test(mime))
+            return replygcxeon(
+              `Send/Reply Photos With Captions ${prefix + command}`
+            );
+          replygcxeon(mess.wait);
+          media = await XeonBotInc.downloadAndSaveMediaMessage(quoted);
+          mem = await uptotelegra(media);
+          try {
+            let proses = await fetchJson(
+              `https://api.akuari.my.id/search/whatanime?link=${mem}`
+            );
+            if (!proses) return replygcxeon(mess.error);
+            if (proses.status == false) return replygcxeon(mess.error);
+            XeonBotInc.sendMessage(
+              m.chat,
+              { text: proses.hasil.result[0].filename },
               { quoted: m }
             );
             await fs.unlinkSync(media);
